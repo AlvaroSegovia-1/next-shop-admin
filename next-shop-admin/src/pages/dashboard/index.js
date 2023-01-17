@@ -1,5 +1,6 @@
 import useFetch from '@hooks/useFetch';
 import endPoints from '@services/api';
+import { Chart } from '@common/Chart';
 
 const PRODUCT_LIMIT = 5;
 const PRODUCT_OFFSET = 5;
@@ -8,8 +9,24 @@ export default function Dashboard() {
   const products = useFetch(endPoints.products.getProducts(PRODUCT_LIMIT, PRODUCT_OFFSET));
   console.log(products);
 
+  const categoryName = products?.map((product) => product.category);
+  const categoryCount = categoryName?.map((category) => category.name);
+
+
+  const data = {
+    datasets: [
+      {
+        label: 'Categories',
+        data: ['other', 'foods'],
+        borderWidth: 2,
+        backgroundColor: ['#ffbb11', '#c0c0c0', '#50AF95', '#d1cc2f', '#2a71d0'],
+      },
+    ],
+  };
+
   return (
     <>
+      <Chart className="mb-8 mt-2" charData={data} />
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
