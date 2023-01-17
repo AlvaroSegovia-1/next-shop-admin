@@ -1,15 +1,22 @@
 import { useRef } from 'react';
-
-import { LockClosed } from '@heroicons/react/24/solid';
+import { useRouter } from 'next/router';
+/* import { LockClosed } from '@heroicons/react/24/solid'; */
+import { useAuth } from '@hooks/useAuth';
 
 export default function LoginPage() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+  const auth = useAuth();
+  const router = useRouter();
 
   const submitHandler = (e) => {
     e.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
+    auth.signIn(email, password).then(() => {
+      /* console.log('Login sucess'); */
+      router.push('/dashboard')
+    });
   };
 
   return (
@@ -20,7 +27,7 @@ export default function LoginPage() {
             <img className="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow" />
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
           </div>
-          <form className="mt-8 space-y-6" onSubmit={submitHandler} >
+          <form className="mt-8 space-y-6" onSubmit={submitHandler}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
