@@ -1,6 +1,6 @@
 import { Fragment, useRef } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { XCircleIcon } from '@heroicons/react/solid';
+import { XCircleIcon } from '@heroicons/react/24/solid';
 
 export default function Modal({ open, setOpen, children }) {
   const cancelButtonRef = useRef(null);
@@ -14,6 +14,7 @@ export default function Modal({ open, setOpen, children }) {
           <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
             &#8203;
           </span>
+
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
